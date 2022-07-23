@@ -21,7 +21,7 @@
    }
    ```
 
-   i Add Dagger dependencies in project level build.gradle file
+   i Add Dagger Hilt dependencies in project level build.gradle file
 
         ```
         dependencies {
@@ -55,6 +55,56 @@
    }
 
    ```
+   
+2. Set up Dagger Hilt in to the Project by creating Application class then add [@HiltAndroidApp](https://developer.android.com/training/dependency-injection/hilt-android#application-class).
+
+3. Register Start Activity Launcher Conctract in to your Activity/Fragment where you want.
+
+```
+   i. Add [@AndroidEntryPoint](https://developer.android.com/training/dependency-injection/hilt-android#android-classes) in Activity/Frgamnet.
+
+   ii. Inject Below objects
+   
+      @Inject
+      lateinit var startActivityContracts: StartActivityResultCustomContract
+
+    @Inject
+      lateinit var imageAndFilePicker: ImageAndFilePickerContract
+      
+   iii. In OnCreate() for Activity register startActivityContracts like below
+   
+      startActivityContracts.resultRegistry = activityResultRegistry
+      lifecycle.addObserver(startActivityContracts)
+      
+   iv. Now implement onResult interface to get the result like below to get the file or image
+   
+   
+      startActivityContracts.onResultManager.startActivityCustomOnResult = this
+      
+      override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) will get the file or image
+      
+    
+   v. For get the user inside OnResult function use below code
+   
+      result.data?.let { it ->
+            val imageUri = imageAndFilePicker.getDataFromActivityResult(resultECode, it)
+            Timber.e(imageUri)
+            imageUri?.let { uri ->
+                //here you will receive the image or file uri
+            } Kotlin.run { // Here you can handle the error }
+        }
+ 
+```
+
+
+4. For opeing Camera, Gallery and PDF file selection just use below method can we used
+
+      i. imageAndFilePicker.OpenCamera() 
+      
+      ii. imageAndFilePicker.OpenGallery() 
+      
+      iv. imageAndFilePicker.picPDFFile()
+    
 
 ## License
 
