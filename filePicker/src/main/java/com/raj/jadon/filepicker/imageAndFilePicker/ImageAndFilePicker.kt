@@ -18,13 +18,13 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.raj.jadon.filepicker.R
+import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCustomContract
 import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
 import com.yalantis.ucrop.UCrop
@@ -35,8 +35,11 @@ import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ImageAndFilePicker : ImageAndFilePickerContract {
+@Singleton
+class ImageAndFilePicker @Inject constructor() : ImageAndFilePickerContract {
 
     lateinit var context: Context
 

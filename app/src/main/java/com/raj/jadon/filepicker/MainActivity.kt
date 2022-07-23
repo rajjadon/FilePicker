@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityContracts
 import com.raj.jadon.filepicker.databinding.ActivityMainBinding
+import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -13,6 +14,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var startActivityContracts: StartActivityContracts
+
+    @Inject
+    lateinit var imageAndFilePicker: ImageAndFilePickerContract
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
