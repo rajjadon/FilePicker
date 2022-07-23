@@ -61,7 +61,7 @@
 3. Register Start Activity Launcher Conctract in to your Activity/Fragment where you want.
 
 ```
-   i. Add [@AndroidEntryPoint](https://developer.android.com/training/dependency-injection/hilt-android#android-classes) in Activity/Frgamnet.
+   i. Add [@AndroidEntryPoint](https://developer.android.com/training/dependency-injection/hilt-android#android-classes). in Activity/Frgamnet.
 
    ii. Inject Below objects
    
