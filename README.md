@@ -69,7 +69,7 @@
       @Inject
       lateinit var startActivityContracts: StartActivityResultCustomContract
 
-    @Inject
+      @Inject
       lateinit var imageAndFilePicker: ImageAndFilePickerContract
       
    ```   
