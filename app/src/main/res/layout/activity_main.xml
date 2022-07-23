@@ -13,18 +13,21 @@
         android:layout_margin="16dp">
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             tools:src="@tools:sample/avatars"/>
 
         <Button
+            android:id="@+id/openCamera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Open Camera"/>
 
         <Button
+            android:id="@+id/openGallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"

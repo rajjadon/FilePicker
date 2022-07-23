@@ -9,20 +9,11 @@ import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCus
 
 interface ImageAndFilePickerContract {
 
-    fun openGallery(
-        context: Context,
-        startActivityResultCustomContract: StartActivityResultCustomContract,
-    )
+    fun openGallery()
 
-    fun openCamera(
-        context: Context,
-        startActivityResultCustomContract: StartActivityResultCustomContract,
-    )
+    fun openCamera()
 
-    fun pickPDFFile(
-        context: Context,
-        startActivityResultCustomContract: StartActivityResultCustomContract,
-    )
+    fun pickPDFFile()
 
     fun getDataFromActivityResult(
         context: Context,

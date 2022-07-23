@@ -9,6 +9,7 @@ import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivity
 import com.raj.jadon.filepicker.databinding.ActivityMainBinding
 import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,6 +30,14 @@ class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
         startActivityContracts.resultRegistry = activityResultRegistry
         lifecycle.addObserver(startActivityContracts)
         startActivityContracts.onResultManager.startActivityCustomOnResult = this
+
+        setOnClickListener()
+    }
+
+    private fun setOnClickListener() {
+        mainBinding.openCamera.setOnClickListener { imageAndFilePicker.openCamera() }
+
+        mainBinding.openGallery.setOnClickListener { imageAndFilePicker.openGallery() }
     }
 
     override fun onDestroy() {
@@ -37,6 +46,6 @@ class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
     }
 
     override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) {
-        TODO("Not yet implemented")
+        Timber.e(result.toString())
     }
 }

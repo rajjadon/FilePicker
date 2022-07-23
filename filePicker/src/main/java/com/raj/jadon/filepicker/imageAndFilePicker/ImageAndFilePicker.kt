@@ -29,6 +29,7 @@ import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCus
 import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.UCropActivity
+import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -39,20 +40,15 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ImageAndFilePicker @Inject constructor() : ImageAndFilePickerContract {
-
-    lateinit var context: Context
-
-    lateinit var startActivityContracts: StartActivityResultCustomContract
+class ImageAndFilePicker @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val startActivityContracts: StartActivityResultCustomContract
+) :
+    ImageAndFilePickerContract {
 
     lateinit var photoFile: File
 
-    override fun openGallery(
-        context: Context,
-        startActivityResultCustomContract: StartActivityResultCustomContract,
-    ) {
-        this.context = context
-        this.startActivityContracts = startActivityResultCustomContract
+    override fun openGallery() {
         Dexter.withContext(context)
             .withPermissions(
                 Manifest.permission.CAMERA,
@@ -79,13 +75,7 @@ class ImageAndFilePicker @Inject constructor() : ImageAndFilePickerContract {
             }).check()
     }
 
-    override fun pickPDFFile(
-        context: Context,
-        startActivityResultCustomContract: StartActivityResultCustomContract,
-    ) {
-        this.context = context
-        this.startActivityContracts = startActivityResultCustomContract
-
+    override fun pickPDFFile() {
         val intent = Intent()
         intent.action = Intent.ACTION_GET_CONTENT
         intent.type = "application/pdf"
@@ -97,12 +87,7 @@ class ImageAndFilePicker @Inject constructor() : ImageAndFilePickerContract {
         )
     }
 
-    override fun openCamera(
-        context: Context,
-        startActivityResultCustomContract: StartActivityResultCustomContract,
-    ) {
-        this.context = context
-        this.startActivityContracts = startActivityResultCustomContract
+    override fun openCamera( ) {
         Dexter.withContext(context)
             .withPermissions(
                 Manifest.permission.CAMERA,
@@ -112,7 +97,6 @@ class ImageAndFilePicker @Inject constructor() : ImageAndFilePickerContract {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     if (report!!.areAllPermissionsGranted()) {
 
-                        startActivityContracts = startActivityResultCustomContract
                         photoFile = createImageFile(context)
 
                         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
