@@ -1,15 +1,18 @@
 package com.raj.jadon.filepicker
 
 import android.os.Bundle
+import androidx.activity.result.ActivityResult
 import androidx.appcompat.app.AppCompatActivity
+import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCustomContract
+import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityCustomOnResult
 import com.raj.jadon.filepicker.databinding.ActivityMainBinding
 import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
     private lateinit var mainBinding: ActivityMainBinding
 
     @Inject
@@ -25,10 +28,15 @@ class MainActivity : AppCompatActivity() {
 
         startActivityContracts.resultRegistry = activityResultRegistry
         lifecycle.addObserver(startActivityContracts)
+        startActivityContracts.onResultManager.startActivityCustomOnResult = this
     }
 
     override fun onDestroy() {
         super.onDestroy()
         lifecycle.removeObserver(startActivityContracts)
+    }
+
+    override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) {
+        TODO("Not yet implemented")
     }
 }

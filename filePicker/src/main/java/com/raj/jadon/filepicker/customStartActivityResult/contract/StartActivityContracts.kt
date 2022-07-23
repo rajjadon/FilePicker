@@ -9,6 +9,7 @@ package com.raj.jadon.filepicker.customStartActivityResult.contract
 import androidx.activity.result.ActivityResult
 
 interface StartActivityContracts {
+    var startActivityCustomOnResult: StartActivityCustomOnResult
     fun setGalleryResult(result: ActivityResult)
     fun setCamera(result: ActivityResult)
     fun setPdf(result: ActivityResult)

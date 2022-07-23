@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class StartActivityResultContractListenerImplement @Inject constructor(): StartActivityContracts {
 
-    lateinit var startActivityCustomOnResult: StartActivityCustomOnResult
+    override lateinit var startActivityCustomOnResult: StartActivityCustomOnResult
 
     override fun setCamera(result: ActivityResult) {
 
