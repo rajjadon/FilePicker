@@ -8,10 +8,11 @@ package com.raj.jadon.filepicker.customStartActivityResult
 
 import androidx.activity.result.ActivityResult
 import com.android.wakeMate.common.enums.StartActivityForResultEnum
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class StartActivityResultContractListenerImplement : StartActivityContracts {
+class StartActivityResultContractListenerImplement @Inject constructor() : StartActivityContracts {
 
     lateinit var startActivityCustomOnResult: StartActivityCustomOnResult
 
