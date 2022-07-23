@@ -12,7 +12,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class StartActivityResultContractListenerImplement @Inject constructor() : StartActivityContracts {
+class StartActivityResultContractListenerImplement : StartActivityContracts {
 
     lateinit var startActivityCustomOnResult: StartActivityCustomOnResult
 
