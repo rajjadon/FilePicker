@@ -3,6 +3,7 @@ package com.raj.jadon.filepicker
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCustomContract
 import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityCustomOnResult
@@ -46,8 +47,12 @@ class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
     }
 
     override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) {
-        result.data?.let {
-            Timber.e(imageAndFilePicker.getDataFromActivityResult(resultECode, it))
+        result.data?.let { it ->
+            val imageUri = imageAndFilePicker.getDataFromActivityResult(resultECode, it)
+            Timber.e(imageUri)
+            imageUri?.let { uri ->
+                mainBinding.imageView.setImageURI(uri.toUri())
+            }
         }
     }
 }
