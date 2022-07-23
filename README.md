@@ -2,7 +2,7 @@
 
 #### This project aims to provide an ultimate and flexible image picking from Gallery, Camera and cropping experience as well as PDF picking from system.
 
-#### For the Image Cropping i have used UCrop library.
+#### For the Image Cropping [UCrop](https://github.com/Yalantis/uCrop) library being used.
 
 # Tag [![](https://jitpack.io/v/rajjadon/FilePicker.svg)](https://jitpack.io/#rajjadon/FilePicker)
 
