@@ -4,7 +4,7 @@
 
 #### For the Image Cropping [UCrop](https://github.com/Yalantis/uCrop) library being used.
 
-# Tag [![](https://jitpack.io/v/rajjadon/FilePicker.svg)](https://jitpack.io/#rajjadon/FilePicker)
+# [![](https://jitpack.io/v/rajjadon/FilePicker.svg)](https://jitpack.io/#rajjadon/FilePicker)
 
 # Usage
 
@@ -103,7 +103,7 @@
       
       ii. imageAndFilePicker.OpenGallery() 
       
-      iv. imageAndFilePicker.picPDFFile()
+      iii. imageAndFilePicker.picPDFFile()
     
 
 ## License
