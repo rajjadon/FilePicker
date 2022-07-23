@@ -18,7 +18,7 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.android.wakeMate.common.enums.StartActivityForResultEnum
+import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken

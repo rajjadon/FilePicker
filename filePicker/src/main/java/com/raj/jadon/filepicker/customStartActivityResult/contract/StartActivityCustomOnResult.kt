@@ -7,7 +7,7 @@
 package com.raj.jadon.filepicker.customStartActivityResult.contract
 
 import androidx.activity.result.ActivityResult
-import com.android.wakeMate.common.enums.StartActivityForResultEnum
+import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
 
 interface StartActivityCustomOnResult {
     fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult)
