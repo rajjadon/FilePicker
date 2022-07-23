@@ -11,6 +11,9 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var mainBinding: ActivityMainBinding
 
+    @Inject
+    lateinit var startActivityContracts: StartActivityContracts
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
