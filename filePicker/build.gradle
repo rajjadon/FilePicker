@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id 'maven-publish'
 }
 
 android {
@@ -28,6 +29,20 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github/rajjadon/FilePicker'
+                artifactId = 'rajjadon/FilePicker'
+                version = '1.0.0'
+            }
+        }
     }
 }
 
