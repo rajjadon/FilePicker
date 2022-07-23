@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
     }
 
     override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) {
-        Timber.e(result.toString())
+        result.data?.let {
+            Timber.e(imageAndFilePicker.getDataFromActivityResult(resultECode, it))
+        }
     }
 }

@@ -87,7 +87,7 @@ class ImageAndFilePicker @Inject constructor(
         )
     }
 
-    override fun openCamera( ) {
+    override fun openCamera() {
         Dexter.withContext(context)
             .withPermissions(
                 Manifest.permission.CAMERA,
@@ -120,29 +120,30 @@ class ImageAndFilePicker @Inject constructor(
     }
 
     override fun getDataFromActivityResult(
-        context: Context,
         resultECode: StartActivityForResultEnum,
         result: Intent,
-        activity: Fragment,
-        isCroppingEnable: Boolean,
-    ): String {
-        var currentPhotoPath = ""
+        fragment: Fragment?,
+        isCroppingEnable: Boolean
+    ): String? {
+        var currentPhotoPath: String? = ""
 
         when (resultECode) {
             StartActivityForResultEnum.GALLERY -> {
 
                 currentPhotoPath = if (isCroppingEnable)
-                    launchImageCropping(
-                        Uri.fromFile(
-                            File(
-                                getPicturePathForGallery(
-                                    context,
-                                    result
+                    fragment?.let {
+                        launchImageCropping(
+                            Uri.fromFile(
+                                File(
+                                    getPicturePathForGallery(
+                                        context,
+                                        result
+                                    )
                                 )
-                            )
-                        ),
-                        activity
-                    ).toString()
+                            ),
+                            it
+                        ).toString()
+                    }
                 else
                     getPicturePathForGallery(context, result)
             }
@@ -151,7 +152,9 @@ class ImageAndFilePicker @Inject constructor(
                 try {
                     saveBitmapIntoFIle(result.extras?.get("data") as Bitmap)
                     currentPhotoPath = if (isCroppingEnable)
-                        launchImageCropping(Uri.fromFile(photoFile), activity).toString()
+                        fragment?.let {
+                            launchImageCropping(Uri.fromFile(photoFile), it).toString()
+                        }
                     else
                         photoFile.absolutePath
 
@@ -230,7 +233,7 @@ class ImageAndFilePicker @Inject constructor(
     }
 
     @SuppressLint("Range", "Recycle")
-    override fun getFileName(context: Context, fileUri: Uri): String? {
+    override fun getFileName(fileUri: Uri): String? {
         var displayName: String? = null
         if (fileUri.toString().startsWith("content://")) {
             var cursor: Cursor? = null

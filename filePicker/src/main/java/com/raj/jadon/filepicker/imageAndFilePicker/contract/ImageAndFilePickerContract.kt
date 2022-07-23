@@ -16,12 +16,11 @@ interface ImageAndFilePickerContract {
     fun pickPDFFile()
 
     fun getDataFromActivityResult(
-        context: Context,
         resultECode: StartActivityForResultEnum,
         result: Intent,
-        activity: Fragment,
+        fragment: Fragment? = null,
         isCroppingEnable: Boolean = false,
-    ): String
+    ): String?
 
-    fun getFileName(context: Context, fileUri: Uri): String?
+    fun getFileName(fileUri: Uri): String?
 }
