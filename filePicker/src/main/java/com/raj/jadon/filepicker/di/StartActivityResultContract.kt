@@ -1,6 +1,6 @@
 package com.raj.jadon.filepicker.di
 
-import com.raj.jadon.filepicker.customStartActivityResult.StartActivityContracts
+import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityContracts
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultContractListenerImplement
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCustomContract
 import dagger.Binds

@@ -4,7 +4,7 @@
  * Last modified 09/08/21, 6:49 PM
  */
 
-package com.raj.jadon.filepicker.customStartActivityResult
+package com.raj.jadon.filepicker.customStartActivityResult.contract
 
 import androidx.activity.result.ActivityResult
 

@@ -4,7 +4,7 @@
  * Last modified 09/08/21, 7:15 PM
  */
 
-package com.raj.jadon.filepicker
+package com.raj.jadon.filepicker.imageAndFilePicker
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -24,7 +24,9 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.raj.jadon.filepicker.R
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCustomContract
+import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.UCropActivity
 import timber.log.Timber
@@ -34,7 +36,7 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ImageAndFilePicker {
+class ImageAndFilePicker : ImageAndFilePickerContract {
 
     lateinit var context: Context
 
@@ -42,7 +44,7 @@ class ImageAndFilePicker {
 
     lateinit var photoFile: File
 
-    fun openGallery(
+    override fun openGallery(
         context: Context,
         startActivityResultCustomContract: StartActivityResultCustomContract,
     ) {
@@ -74,7 +76,7 @@ class ImageAndFilePicker {
             }).check()
     }
 
-    fun pickPDFFile(
+    override fun pickPDFFile(
         context: Context,
         startActivityResultCustomContract: StartActivityResultCustomContract,
     ) {
@@ -92,7 +94,7 @@ class ImageAndFilePicker {
         )
     }
 
-    fun openCamera(
+    override fun openCamera(
         context: Context,
         startActivityResultCustomContract: StartActivityResultCustomContract,
     ) {
@@ -130,12 +132,12 @@ class ImageAndFilePicker {
             }).check()
     }
 
-    fun getDataFromActivityResult(
+    override fun getDataFromActivityResult(
         context: Context,
         resultECode: StartActivityForResultEnum,
         result: Intent,
         activity: Fragment,
-        isCroppingEnable: Boolean = false,
+        isCroppingEnable: Boolean,
     ): String {
         var currentPhotoPath = ""
 
@@ -219,7 +221,7 @@ class ImageAndFilePicker {
         return picturePath
     }
 
-    fun createImageFile(context: Context): File {
+    private fun createImageFile(context: Context): File {
         val imageFileName =
             "IMG_" + SimpleDateFormat("yyyyMMdd_HH_mm_ss", Locale.getDefault()).format(Date())
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -241,7 +243,7 @@ class ImageAndFilePicker {
     }
 
     @SuppressLint("Range", "Recycle")
-    fun getFileName(context: Context, fileUri: Uri): String? {
+    override fun getFileName(context: Context, fileUri: Uri): String? {
         var displayName: String? = null
         if (fileUri.toString().startsWith("content://")) {
             var cursor: Cursor? = null
