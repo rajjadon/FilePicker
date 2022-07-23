@@ -38,8 +38,8 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.github/rajjadon/FilePicker'
-                artifactId = 'rajjadon/FilePicker'
+                groupId = 'com.github.rajjadon'
+                artifactId = 'filePicker'
                 version = '1.0.0'
             }
         }
