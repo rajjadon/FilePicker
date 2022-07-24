@@ -32,10 +32,6 @@ class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
             Timber.e(e.message)
         }
 
-//        startActivityContracts.resultRegistry = activityResultRegistry
-//        lifecycle.addObserver(startActivityContracts)
-//        startActivityContracts.onResultManager.startActivityCustomOnResult = this
-
         setOnClickListener()
     }
 
