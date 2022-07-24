@@ -9,11 +9,8 @@ package com.raj.jadon.filepicker.customStartActivityResult
 import androidx.activity.result.ActivityResult
 import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityContracts
 import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityCustomOnResult
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class StartActivityResultContractListenerImplement @Inject constructor(): StartActivityContracts {
+class StartActivityResultContractListenerImplement : StartActivityContracts {
 
     override lateinit var startActivityCustomOnResult: StartActivityCustomOnResult
 

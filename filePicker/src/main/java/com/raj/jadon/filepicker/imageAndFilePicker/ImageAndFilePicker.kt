@@ -29,19 +29,15 @@ import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCus
 import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.UCropActivity
-import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ImageAndFilePicker @Inject constructor(
-    @ApplicationContext private val context: Context,
+class ImageAndFilePicker constructor(
+    private val context: Context,
     private val startActivityContracts: StartActivityResultCustomContract
 ) :
     ImageAndFilePickerContract {
