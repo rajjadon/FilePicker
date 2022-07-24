@@ -6,13 +6,19 @@ import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCon
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCustomContract
 import com.raj.jadon.filepicker.imageAndFilePicker.ImageAndFilePicker
 
-open class Injector private constructor(private val context: Context) {
+class Injector private constructor(private val context: Context) {
 
     companion object {
         @SuppressLint("StaticFieldLeak")
         @Volatile
         private var injector: Injector? = null
+
+        @SuppressLint("StaticFieldLeak")
+        @Volatile
         private var startActivityContracts: StartActivityResultCustomContract? = null
+
+        @SuppressLint("StaticFieldLeak")
+        @Volatile
         private var imageAndFilePicker: ImageAndFilePicker? = null
 
         fun initInjectorInstance(context: Context) = run {
