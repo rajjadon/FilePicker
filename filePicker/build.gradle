@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
     id 'maven-publish'
 }
 
@@ -57,14 +56,6 @@ dependencies {
 
     // Timber
     api 'com.jakewharton.timber:timber:5.0.1'
-
-    // Hilt dependencies
-    api "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-
-//     Hilt ViewModel extension
-    api "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
-    api "androidx.hilt:hilt-navigation-compose:$hilt_jetpack_navigation_version"
 
     // dexter
     api 'com.karumi:dexter:6.2.3'

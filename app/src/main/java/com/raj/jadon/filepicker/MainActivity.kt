@@ -5,53 +5,64 @@ import androidx.activity.result.ActivityResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
-import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCustomContract
 import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityCustomOnResult
 import com.raj.jadon.filepicker.databinding.ActivityMainBinding
-import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
-import dagger.hilt.android.AndroidEntryPoint
+import com.raj.jadon.filepicker.mannualDi.Injector
 import timber.log.Timber
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
     private lateinit var mainBinding: ActivityMainBinding
 
-    @Inject
-    lateinit var startActivityContracts: StartActivityResultCustomContract
-
-    @Inject
-    lateinit var imageAndFilePicker: ImageAndFilePickerContract
+    private lateinit var injector: Injector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        startActivityContracts.resultRegistry = activityResultRegistry
-        lifecycle.addObserver(startActivityContracts)
-        startActivityContracts.onResultManager.startActivityCustomOnResult = this
+        try {
+            injector = Injector.getInjectorInstance()
+
+            injector.getStartActivityContract()?.let {
+                it.resultRegistry = activityResultRegistry
+                lifecycle.addObserver(it)
+                it.onResultManager.startActivityCustomOnResult = this
+            }
+        } catch (e: Exception) {
+            Timber.e(e.message)
+        }
+
+//        startActivityContracts.resultRegistry = activityResultRegistry
+//        lifecycle.addObserver(startActivityContracts)
+//        startActivityContracts.onResultManager.startActivityCustomOnResult = this
 
         setOnClickListener()
     }
 
     private fun setOnClickListener() {
-        mainBinding.openCamera.setOnClickListener { imageAndFilePicker.openCamera() }
+        mainBinding.openCamera.setOnClickListener {
+            injector.getImageFilePicker()?.openCamera()
+        }
 
-        mainBinding.openGallery.setOnClickListener { imageAndFilePicker.openGallery() }
+        mainBinding.openGallery.setOnClickListener { injector.getImageFilePicker()?.openGallery() }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(startActivityContracts)
+        injector.getStartActivityContract()?.let {
+            lifecycle.removeObserver(it)
+        }
     }
 
     override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) {
         result.data?.let { it ->
-            val imageUri = imageAndFilePicker.getDataFromActivityResult(resultECode, it)
-            Timber.e(imageUri)
-            imageUri?.let { uri ->
-                mainBinding.imageView.setImageURI(uri.toUri())
+
+            injector.getImageFilePicker()?.let { imageAndFilePicker ->
+                val imageUri = imageAndFilePicker.getDataFromActivityResult(resultECode, it)
+                Timber.e(imageUri)
+                imageUri?.let { uri ->
+                    mainBinding.imageView.setImageURI(uri.toUri())
+                }
             }
         }
     }

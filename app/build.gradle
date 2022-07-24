@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -51,8 +50,4 @@ dependencies {
 
     // Timber
     api 'com.jakewharton.timber:timber:5.0.1'
-
-    // Hilt dependencies
-    api "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 }
