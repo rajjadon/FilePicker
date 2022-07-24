@@ -4,6 +4,8 @@
 
 #### For the Image Cropping [UCrop](https://github.com/Yalantis/uCrop) library being used.
 
+#### For the Permission [Dexter](https://github.com/Karumi/Dexter) library being used.
+
 # [![](https://jitpack.io/v/rajjadon/FilePicker.svg)](https://jitpack.io/#rajjadon/FilePicker)
 
 # Usage
@@ -21,100 +23,58 @@
    }
    ```
 
-   i Add Dagger Hilt dependencies in project level build.gradle file
+   i Add dependencies in app level build.gradle file
 
-        ```
-        dependencies {
-            classpath("com.google.dagger:hilt-android-gradle-plugin:2.40.5")
-        }
-    
-       allprojects{
-        ext {
-            // dagger hilt
-            hilt_version = '2.40.5'
-            hilt_jetpack_version = '1.0.0-alpha03'
-            hilt_jetpack_navigation_version = '1.0.0'
-        }
-       }
-
-       ```
-
-   ii. The below dependencies in app level build.gradle file
-
-   ```
-   plugin{ 
-      id("dagger.hilt.android.plugin")
-   }
-   
-   dependencies {
-      // Hilt dependencies
-       api "com.google.dagger:hilt-android:$hilt_version"
-       kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-   
+   ```   
+   dependencies {   
        implementation 'com.github.rajjadon:FilePicker:Tag'
    }
 
    ```
-   
-2. Set up Dagger Hilt in to the Project by creating Application class then add [@HiltAndroidApp](https://developer.android.com/training/dependency-injection/hilt-android#application-class).
 
-3. Register Start Activity Launcher Conctract in to your Activity/Fragment where you want.
+2. Initialize Library in to Application class
 
-
-   i. Add [@AndroidEntryPoint](https://developer.android.com/training/dependency-injection/hilt-android#android-classes) in Activity/Frgamnet.
-
-   ii. Inject Below objects
-   
-   ```
-      @Inject
-      lateinit var startActivityContracts: StartActivityResultCustomContract
-
-      @Inject
-      lateinit var imageAndFilePicker: ImageAndFilePickerContract
-      
    ```   
-      
-   iii. In OnCreate() for Activity register startActivityContracts like below
-   
-      startActivityContracts.resultRegistry = activityResultRegistry
-      lifecycle.addObserver(startActivityContracts)
-      
-   iv. Now implement onResult interface to get the result like below to get the file or image
-   
-      ```
-      startActivityContracts.onResultManager.startActivityCustomOnResult = this
-      
-      override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) will get the file or image
-      
-      ```
-      
-    
-   v. For get the user inside OnResult function use below code
-   
+   Injector.initInjectorInstance(this)
    ```
-      result.data?.let { it ->
-            val imageUri = imageAndFilePicker.getDataFromActivityResult(resultECode, it)
-            Timber.e(imageUri)
-            imageUri?.let { uri ->
-                //here you will receive the image or file uri
-            } Kotlin.run { // Here you can handle the error }
-        }
- 
+3. Register Result Registry on Activity like below
+
+   ```   
+   Injector.getInstance().startActivityContracts.resultRegistry = activityResultRegistry
+   lifecycle.addObserver(Injector.getInstance().startActivityContracts)
    ```
 
+4. Register Result Registry and add it in lifecycle Observer on Activity like below
 
-4. For opeing Camera, Gallery and PDF file selection just use below method can we used
+   ```   
+   Injector.getInstance().startActivityContracts.resultRegistry = activityResultRegistry
+   lifecycle.addObserver(Injector.getInstance().startActivityContracts)
+   
+5. Remove register Result Registry Observer in OnDestroy of Activity like below
 
-      ```
+   ```   
+    lifecycle.removeObserver(Injector.getInstance().startActivityContracts)
+   ```
+7. Implement OnResult Method Like below to get the Result
 
-      i. imageAndFilePicker.OpenCamera() 
-      
-      ii. imageAndFilePicker.OpenGallery() 
-      
-      iii. imageAndFilePicker.picPDFFile()
-      
-      ```
-    
+   ```   
+   Injector.getInstance().startActivityContracts.onResultManager.startActivityCustomOnResult = this
+   ```
+8. Call following method as per need
+
+   ```   
+   i.   Injector.getInstance().imageAndFilePicker.openCamera() // For selecting image direct from Camera
+   ii.  Injector.getInstance().imageAndFilePicker.openGallery() // For selecting image from Gallery
+   iii. Injector.getInstance().imageAndFilePicker.pickPDFFile() // For Pic PDF file form file manager
+   iv.  Injecto.getInstance().imageAndFilePicker.getDataFromActivityResult(
+        resultECode: StartActivityForResultEnum,
+        result: Intent,
+        fragment: Fragment? = null,
+        isCroppingEnable: Boolean = false,
+    ) //  Use this function in OnResult it will return URI of selected image and PDF file. by passing true in isCroppingEnable argument you can enable the image Cropping as well
+   
+   v.   Injector.getInstance().imageAndFilePicker.getFileName(fileUri: Uri) // For get the File name by passing the File Uri.
+   ```
 
 ## License
 
