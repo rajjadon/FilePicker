@@ -13,52 +13,44 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
     private lateinit var mainBinding: ActivityMainBinding
 
-    private lateinit var injector: Injector
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        try {
-            injector = Injector.getInjectorInstance()
+        Injector.getInstance().startActivityContracts.resultRegistry =
+            activityResultRegistry
+        lifecycle.addObserver(Injector.getInstance().startActivityContracts)
 
-            injector.getStartActivityContract()?.let {
-                it.resultRegistry = activityResultRegistry
-                lifecycle.addObserver(it)
-                it.onResultManager.startActivityCustomOnResult = this
-            }
-        } catch (e: Exception) {
-            Timber.e(e.message)
-        }
+        Injector.getInstance().startActivityContracts.onResultManager.startActivityCustomOnResult = this
 
         setOnClickListener()
     }
 
     private fun setOnClickListener() {
         mainBinding.openCamera.setOnClickListener {
-            injector.getImageFilePicker()?.openCamera()
+            Injector.getInstance().imageAndFilePicker.openCamera()
         }
 
-        mainBinding.openGallery.setOnClickListener { injector.getImageFilePicker()?.openGallery() }
+        mainBinding.openGallery.setOnClickListener { Injector.getInstance().imageAndFilePicker.openGallery() }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        injector.getStartActivityContract()?.let {
-            lifecycle.removeObserver(it)
-        }
+        lifecycle.removeObserver(Injector.getInstance().startActivityContracts)
     }
 
     override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) {
         result.data?.let { it ->
 
-            injector.getImageFilePicker()?.let { imageAndFilePicker ->
-                val imageUri = imageAndFilePicker.getDataFromActivityResult(resultECode, it)
-                Timber.e(imageUri)
-                imageUri?.let { uri ->
-                    mainBinding.imageView.setImageURI(uri.toUri())
-                }
+            val imageUri =
+                Injector.getInstance().imageAndFilePicker.getDataFromActivityResult(
+                    resultECode,
+                    it
+                )
+            Timber.e(imageUri)
+            imageUri?.let { uri ->
+                mainBinding.imageView.setImageURI(uri.toUri())
             }
         }
     }
