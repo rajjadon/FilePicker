@@ -18,7 +18,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+
+            debuggable false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,7 +41,7 @@ afterEvaluate {
 
                 groupId = 'com.github.rajjadon'
                 artifactId = 'filePicker'
-                version = '1.0.1'
+                version = '1.0.2'
             }
         }
     }
