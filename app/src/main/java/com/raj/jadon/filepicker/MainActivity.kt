@@ -7,37 +7,39 @@ import androidx.core.net.toUri
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
 import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityCustomOnResult
 import com.raj.jadon.filepicker.databinding.ActivityMainBinding
-import com.raj.jadon.filepicker.mannualDi.Injector
+import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
+import com.raj.jadon.filepicker.mannualDi.ImageAndFilePickerInjector
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
     private lateinit var mainBinding: ActivityMainBinding
+
+    private val imageAndFilePicker: ImageAndFilePickerContract by lazy { ImageAndFilePickerInjector.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        Injector.getInstance().startActivityContracts.resultRegistry =
-            activityResultRegistry
-        lifecycle.addObserver(Injector.getInstance().startActivityContracts)
+        imageAndFilePicker.registerResultRegistry(
+            onResult = this,
+            lifecycle = lifecycle,
+            activityResultRegistry = activityResultRegistry
+        )
 
-        Injector.getInstance().startActivityContracts.onResultManager.startActivityCustomOnResult =
-            this
-
-        mainBinding.imageAndFilePicker = Injector.getInstance().imageAndFilePicker
+        mainBinding.imageAndFilePicker = imageAndFilePicker
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(Injector.getInstance().startActivityContracts)
+        imageAndFilePicker.removeResultRegistry(lifecycle)
     }
 
     override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) {
         result.data?.let { it ->
 
             val imageUri =
-                Injector.getInstance().imageAndFilePicker.getDataFromActivityResult(
+                imageAndFilePicker.getDataFromActivityResult(
                     resultECode,
                     it
                 )
