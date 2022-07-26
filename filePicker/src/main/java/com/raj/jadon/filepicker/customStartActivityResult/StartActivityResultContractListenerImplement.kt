@@ -20,9 +20,9 @@ class StartActivityResultContractListenerImplement : StartActivityContracts {
             startActivityCustomOnResult.onResult(StartActivityForResultEnum.CAMERA, result)
     }
 
-    override fun setPdf(result: ActivityResult) {
+    override fun setDOC(result: ActivityResult) {
         if (this::startActivityCustomOnResult.isInitialized)
-            startActivityCustomOnResult.onResult(StartActivityForResultEnum.PDF, result)
+            startActivityCustomOnResult.onResult(StartActivityForResultEnum.DOC, result)
     }
 
     override fun setGalleryResult(result: ActivityResult) {

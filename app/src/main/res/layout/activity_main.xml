@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
+
+    <data>
+
+        <variable
+            name="imageAndFilePicker"
+            type="com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract" />
+
+    </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp"
+        android:layout_margin="16dp"
         android:gravity="center"
-        android:layout_margin="16dp">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            tools:src="@tools:sample/avatars"/>
+            tools:src="@tools:sample/avatars" />
 
         <Button
-            android:id="@+id/openCamera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{()->imageAndFilePicker.openCamera()}"
             android:padding="10dp"
-            android:text="Open Camera"/>
+            android:text="Open Camera" />
 
         <Button
-            android:id="@+id/openGallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{()-> imageAndFilePicker.openGallery()}"
             android:padding="10dp"
-            android:text="Open Gallery"/>
+            android:text="Open Gallery" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> imageAndFilePicker.pickDOCFile()}"
+            android:padding="10dp"
+            android:text="Pic Doc" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -12,5 +12,5 @@ interface StartActivityContracts {
     var startActivityCustomOnResult: StartActivityCustomOnResult
     fun setGalleryResult(result: ActivityResult)
     fun setCamera(result: ActivityResult)
-    fun setPdf(result: ActivityResult)
+    fun setDOC(result: ActivityResult)
 }
