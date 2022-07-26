@@ -16,8 +16,10 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import androidx.activity.result.ActivityResultRegistry
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -26,6 +28,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.raj.jadon.filepicker.R
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityResultCustomContract
+import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityCustomOnResult
 import com.raj.jadon.filepicker.imageAndFilePicker.contract.ImageAndFilePickerContract
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.UCropActivity
@@ -172,6 +175,20 @@ class ImageAndFilePicker constructor(
             }
         }
         return currentPhotoPath
+    }
+
+    override fun registerResultRegistry(
+        onResult: StartActivityCustomOnResult,
+        lifecycle: Lifecycle,
+        activityResultRegistry: ActivityResultRegistry
+    ) {
+        startActivityContracts.resultRegistry = activityResultRegistry
+        startActivityContracts.onResultManager.startActivityCustomOnResult = onResult
+        lifecycle.addObserver(startActivityContracts)
+    }
+
+    override fun removeResultRegistry(lifecycle: Lifecycle) {
+        lifecycle.removeObserver(startActivityContracts)
     }
 
     private fun launchImageCropping(imageUri: Uri, activity: Fragment) {
