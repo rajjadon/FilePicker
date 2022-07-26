@@ -71,14 +71,14 @@ class ImageAndFilePicker constructor(
             }).check()
     }
 
-    override fun pickPDFFile() {
+    override fun pickDOCFile() {
         val intent = Intent()
         intent.action = Intent.ACTION_GET_CONTENT
-        intent.type = "application/pdf"
-        startActivityContracts.setPdfLauncher.launch(
+        intent.type = "application/*" // application/pdf"
+        startActivityContracts.setDocLauncher.launch(
             Intent.createChooser(
                 intent,
-                "Select PDF file"
+                "Select Document file"
             )
         )
     }
@@ -154,16 +154,16 @@ class ImageAndFilePicker constructor(
                     else
                         photoFile.absolutePath
 
-                    Timber.e("onResult: IMAGE_PATH Camera- $currentPhotoPath")
+                    Timber.d("onResult: IMAGE_PATH Camera- $currentPhotoPath")
                 } catch (e: Exception) {
                     Timber.e("onFailure: ${e.message}")
                 }
             }
 
-            StartActivityForResultEnum.PDF -> {
+            StartActivityForResultEnum.DOC -> {
                 val uri: Uri = result.data!!
                 currentPhotoPath = uri.toString()
-                Timber.e("getImageFromActivityResult: PDF - $currentPhotoPath")
+                Timber.d("getImageFromActivityResult: DOC - $currentPhotoPath")
             }
 
             StartActivityForResultEnum.IMAGE_CROPPING -> {

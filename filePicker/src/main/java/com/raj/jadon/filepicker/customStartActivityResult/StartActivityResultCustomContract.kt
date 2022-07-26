@@ -24,7 +24,7 @@ class StartActivityResultCustomContract(val onResultManager: StartActivityContra
     //Contract resultRegistry object
     lateinit var setCameraLauncher: ActivityResultLauncher<Intent>
     lateinit var setGalleryLauncher: ActivityResultLauncher<Intent>
-    lateinit var setPdfLauncher: ActivityResultLauncher<Intent>
+    lateinit var setDocLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
@@ -37,12 +37,12 @@ class StartActivityResultCustomContract(val onResultManager: StartActivityContra
                 onResultManager::setCamera
             )
 
-        setPdfLauncher =
+        setDocLauncher =
             resultRegistry.register(
-                StartActivityForResultEnum.PDF.name,
+                StartActivityForResultEnum.DOC.name,
                 owner,
                 ActivityResultContracts.StartActivityForResult(),
-                onResultManager::setPdf
+                onResultManager::setDOC
             )
 
         setGalleryLauncher =

@@ -22,17 +22,10 @@ class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
             activityResultRegistry
         lifecycle.addObserver(Injector.getInstance().startActivityContracts)
 
-        Injector.getInstance().startActivityContracts.onResultManager.startActivityCustomOnResult = this
+        Injector.getInstance().startActivityContracts.onResultManager.startActivityCustomOnResult =
+            this
 
-        setOnClickListener()
-    }
-
-    private fun setOnClickListener() {
-        mainBinding.openCamera.setOnClickListener {
-            Injector.getInstance().imageAndFilePicker.openCamera()
-        }
-
-        mainBinding.openGallery.setOnClickListener { Injector.getInstance().imageAndFilePicker.openGallery() }
+        mainBinding.imageAndFilePicker = Injector.getInstance().imageAndFilePicker
     }
 
     override fun onDestroy() {

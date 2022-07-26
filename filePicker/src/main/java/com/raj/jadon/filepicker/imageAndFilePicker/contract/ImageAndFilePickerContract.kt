@@ -13,7 +13,7 @@ interface ImageAndFilePickerContract {
 
     fun openCamera()
 
-    fun pickPDFFile()
+    fun pickDOCFile()
 
     fun getDataFromActivityResult(
         resultECode: StartActivityForResultEnum,

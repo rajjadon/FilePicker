@@ -7,7 +7,7 @@
 package com.raj.jadon.filepicker.customStartActivityResult
 
 enum class StartActivityForResultEnum {
-    PDF,
+    DOC,
     GALLERY,
     CAMERA,
     IMAGE_CROPPING
