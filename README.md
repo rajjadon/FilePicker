@@ -47,12 +47,7 @@
         )
    ```
 
-4. Remove register Result Registry Observer in OnDestroy/OnDestroyView of Activity/Fragment like below
-
-   ```   
-    imageAndFilePicker.removeResultRegistry(lifecycle)
-   ```
-7. Call following method as per need
+4. Call following method as per need
 
    ```   
    i.   imageAndFilePicker.openCamera() // For selecting image direct from Camera
