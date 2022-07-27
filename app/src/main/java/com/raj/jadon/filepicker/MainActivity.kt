@@ -30,11 +30,6 @@ class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
         mainBinding.imageAndFilePicker = imageAndFilePicker
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        imageAndFilePicker.removeResultRegistry(lifecycle)
-    }
-
     override fun onResult(resultECode: StartActivityForResultEnum, result: ActivityResult) {
         result.data?.let { it ->
 
