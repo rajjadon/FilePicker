@@ -54,4 +54,12 @@ class StartActivityResultCustomContract(val onResultManager: StartActivityContra
             )
 
     }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
+        setCameraLauncher.unregister()
+        setGalleryLauncher.unregister()
+        setDocLauncher.unregister()
+        owner.lifecycle.removeObserver(this)
+    }
 }

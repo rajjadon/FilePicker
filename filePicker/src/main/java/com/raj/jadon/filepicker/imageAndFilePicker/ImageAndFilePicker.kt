@@ -187,10 +187,6 @@ class ImageAndFilePicker constructor(
         lifecycle.addObserver(startActivityContracts)
     }
 
-    override fun removeResultRegistry(lifecycle: Lifecycle) {
-        lifecycle.removeObserver(startActivityContracts)
-    }
-
     private fun launchImageCropping(imageUri: Uri, activity: Fragment) {
 
         val uCropOption = UCrop.Options()

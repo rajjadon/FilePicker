@@ -30,6 +30,4 @@ interface ImageAndFilePickerContract {
         lifecycle: Lifecycle,
         activityResultRegistry: ActivityResultRegistry
     )
-
-    fun removeResultRegistry(lifecycle: Lifecycle)
 }
