@@ -35,45 +35,37 @@
 2. Initialize Library in to Application class
 
    ```   
-   Injector.initInjectorInstance(this)
+   ImageAndFilePickerInjector.initInjectorInstance(this)
    ```
-3. Register Result Registry on Activity like below
+3. Register Result Registry in onCreate/OnViewCreated of Activity/Fragment by calling below method
 
    ```   
-   Injector.getInstance().startActivityContracts.resultRegistry = activityResultRegistry
-   lifecycle.addObserver(Injector.getInstance().startActivityContracts)
+   imageAndFilePicker.registerResultRegistry(
+            onResult = this,
+            lifecycle = lifecycle,
+            activityResultRegistry = activityResultRegistry
+        )
    ```
 
-4. Register Result Registry and add it in lifecycle Observer on Activity like below
+4. Remove register Result Registry Observer in OnDestroy/OnDestroyView of Activity/Fragment like below
 
    ```   
-   Injector.getInstance().startActivityContracts.resultRegistry = activityResultRegistry
-   lifecycle.addObserver(Injector.getInstance().startActivityContracts)
-   
-5. Remove register Result Registry Observer in OnDestroy of Activity like below
-
-   ```   
-    lifecycle.removeObserver(Injector.getInstance().startActivityContracts)
+    imageAndFilePicker.removeResultRegistry(lifecycle)
    ```
-7. Implement OnResult Method Like below to get the Result
+7. Call following method as per need
 
    ```   
-   Injector.getInstance().startActivityContracts.onResultManager.startActivityCustomOnResult = this
-   ```
-8. Call following method as per need
-
-   ```   
-   i.   Injector.getInstance().imageAndFilePicker.openCamera() // For selecting image direct from Camera
-   ii.  Injector.getInstance().imageAndFilePicker.openGallery() // For selecting image from Gallery
-   iii. Injector.getInstance().imageAndFilePicker.pickPDFFile() // For Pic PDF file form file manager
-   iv.  Injecto.getInstance().imageAndFilePicker.getDataFromActivityResult(
+   i.   imageAndFilePicker.openCamera() // For selecting image direct from Camera
+   ii.  imageAndFilePicker.openGallery() // For selecting image from Gallery
+   iii. imageAndFilePicker.pickDOCFile() // For Pic DOC form file manager
+   iv.  imageAndFilePicker.getDataFromActivityResult(
         resultECode: StartActivityForResultEnum,
         result: Intent,
         fragment: Fragment? = null,
         isCroppingEnable: Boolean = false,
     ) //  Use this function in OnResult it will return URI of selected image and PDF file. by passing true in isCroppingEnable argument you can enable the image Cropping as well
    
-   v.   Injector.getInstance().imageAndFilePicker.getFileName(fileUri: Uri) // For get the File name by passing the File Uri.
+   v.   getFileName(fileUri: Uri) // For get the File name by passing the File Uri.
    ```
 
 ## License
