@@ -50,7 +50,8 @@
 4. Call following method as per need
 
    ```   
-   i.   imageAndFilePicker.openCamera() // For selecting image direct from Camera
+   i.   imageAndFilePicker.openCamera() // For capturing un-compressed image directly from Camera
+   ii.  imageAndFilePicker.openCamera(compressPercentage: Int) // For capturing compressed image directly from Camera. pass compressed percentage between 0-100.
    ii.  imageAndFilePicker.openGallery() // For selecting image from Gallery
    iii. imageAndFilePicker.pickDOCFile() // For Pic DOC form file manager
    iv.  imageAndFilePicker.getDataFromActivityResult(
@@ -60,7 +61,8 @@
         isCroppingEnable: Boolean = false,
     ) //  Use this function in OnResult it will return URI of selected image and PDF file. by passing true in isCroppingEnable argument you can enable the image Cropping as well
    
-   v.   getFileName(fileUri: Uri) // For get the File name by passing the File Uri.
+   v.  getFileName(fileUri: Uri) // For get the File name by passing the File Uri.
+   v.  getCameraImageFile() // It will return un-compressed capture image
    ```
 
 ## License
