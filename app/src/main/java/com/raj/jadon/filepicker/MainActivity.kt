@@ -43,5 +43,9 @@ class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
                 mainBinding.imageView.setImageURI(uri.toUri())
             }
         }
+
+        if (resultECode == StartActivityForResultEnum.CAMERA){
+            mainBinding.imageView.setImageURI(imageAndFilePicker.getCameraImageFile().toUri())
+        }
     }
 }

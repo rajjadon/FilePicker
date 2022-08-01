@@ -18,6 +18,8 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import androidx.activity.result.ActivityResultRegistry
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.karumi.dexter.Dexter
@@ -99,7 +101,10 @@ class ImageAndFilePicker constructor(
                         photoFile = createImageFile(context)
 
                         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
+                        takePictureIntent.putExtra(
+                            MediaStore.EXTRA_OUTPUT,
+                            getFileProviderFileUri()
+                        )
                         takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
                         takePictureIntent.let {
@@ -118,6 +123,14 @@ class ImageAndFilePicker constructor(
             }).check()
     }
 
+    private fun getFileProviderFileUri(): Uri = kotlin.run {
+        FileProvider.getUriForFile(
+            context,
+            "${context.packageName}.provider",
+            photoFile
+        )
+    }
+
     override fun getDataFromActivityResult(
         resultECode: StartActivityForResultEnum,
         result: Intent,
@@ -132,14 +145,12 @@ class ImageAndFilePicker constructor(
                 currentPhotoPath = if (isCroppingEnable)
                     fragment?.let {
                         launchImageCropping(
-                            Uri.fromFile(
-                                File(
-                                    getPicturePathForGallery(
-                                        context,
-                                        result
-                                    )
+                            File(
+                                getPicturePathForGallery(
+                                    context,
+                                    result
                                 )
-                            ),
+                            ).toUri(),
                             it
                         ).toString()
                     }
@@ -152,12 +163,12 @@ class ImageAndFilePicker constructor(
                     saveBitmapIntoFIle(result.extras?.get("data") as Bitmap)
                     currentPhotoPath = if (isCroppingEnable)
                         fragment?.let {
-                            launchImageCropping(Uri.fromFile(photoFile), it).toString()
+                            launchImageCropping(photoFile.toUri(), it).toString()
                         }
                     else
-                        photoFile.absolutePath
+                        photoFile.toUri().toString()
 
-                    Timber.d("onResult: IMAGE_PATH Camera- $currentPhotoPath")
+                    Timber.e("onResult: IMAGE_PATH Camera- $currentPhotoPath")
                 } catch (e: Exception) {
                     Timber.e("onFailure: ${e.message}")
                 }
@@ -176,6 +187,8 @@ class ImageAndFilePicker constructor(
         }
         return currentPhotoPath
     }
+
+    override fun getCameraImageFile() = photoFile
 
     override fun registerResultRegistry(
         onResult: StartActivityCustomOnResult,
@@ -200,7 +213,7 @@ class ImageAndFilePicker constructor(
         uCropOption.setToolbarWidgetColor(ContextCompat.getColor(context, R.color.colorOnPrimary))
         uCropOption.setToolbarTitle("Drag and zoom image")
 
-        UCrop.of(imageUri, Uri.fromFile(photoFile))
+        UCrop.of(imageUri, photoFile.toUri())
             .withOptions(uCropOption)
             .start(context, activity)
     }

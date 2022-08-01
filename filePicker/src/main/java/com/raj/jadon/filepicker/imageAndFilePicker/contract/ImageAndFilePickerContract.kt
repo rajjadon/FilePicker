@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.raj.jadon.filepicker.customStartActivityResult.StartActivityForResultEnum
 import com.raj.jadon.filepicker.customStartActivityResult.contract.StartActivityCustomOnResult
+import java.io.File
 
 interface ImageAndFilePickerContract {
 
@@ -22,6 +23,8 @@ interface ImageAndFilePickerContract {
         fragment: Fragment? = null,
         isCroppingEnable: Boolean = false,
     ): String?
+
+    fun getCameraImageFile() : File
 
     fun getFileName(fileUri: Uri): String?
 
