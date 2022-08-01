@@ -11,42 +11,56 @@
 
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            tools:src="@tools:sample/avatars" />
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->imageAndFilePicker.openCamera()}"
-            android:padding="10dp"
-            android:text="Open Camera" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                tools:src="@tools:sample/avatars" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{()-> imageAndFilePicker.openGallery()}"
-            android:padding="10dp"
-            android:text="Open Gallery" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->imageAndFilePicker.captureOriginalImage()}"
+                android:padding="10dp"
+                android:text="Open Camera" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{()-> imageAndFilePicker.pickDOCFile()}"
-            android:padding="10dp"
-            android:text="Pic Doc" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->imageAndFilePicker.captureCompressedImage(90)}"
+                android:padding="10dp"
+                android:text="Open Camera Compressed Image" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> imageAndFilePicker.openGallery()}"
+                android:padding="10dp"
+                android:text="Open Gallery" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> imageAndFilePicker.pickDOCFile()}"
+                android:padding="10dp"
+                android:text="Pic Doc" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

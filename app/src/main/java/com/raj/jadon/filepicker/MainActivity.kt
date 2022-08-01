@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), StartActivityCustomOnResult {
             }
         }
 
-        if (resultECode == StartActivityForResultEnum.CAMERA) {
+        if (resultECode == StartActivityForResultEnum.CAPTURE_ORIGINAL_IMAGE) {
             mainBinding.imageView.setImageURI(imageAndFilePicker.getCameraImageFile().toUri())
         }
     }

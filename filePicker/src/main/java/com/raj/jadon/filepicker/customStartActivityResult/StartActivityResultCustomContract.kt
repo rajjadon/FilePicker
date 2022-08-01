@@ -23,6 +23,7 @@ class StartActivityResultCustomContract(val onResultManager: StartActivityContra
 
     //Contract resultRegistry object
     lateinit var setCameraLauncher: ActivityResultLauncher<Intent>
+    lateinit var setCameraCompressedImageLauncher: ActivityResultLauncher<Intent>
     lateinit var setGalleryLauncher: ActivityResultLauncher<Intent>
     lateinit var setDocLauncher: ActivityResultLauncher<Intent>
 
@@ -31,10 +32,18 @@ class StartActivityResultCustomContract(val onResultManager: StartActivityContra
 
         setCameraLauncher =
             resultRegistry.register(
-                StartActivityForResultEnum.CAMERA.name,
+                StartActivityForResultEnum.CAPTURE_ORIGINAL_IMAGE.name,
                 owner,
                 ActivityResultContracts.StartActivityForResult(),
                 onResultManager::setCamera
+            )
+
+        setCameraCompressedImageLauncher =
+            resultRegistry.register(
+                StartActivityForResultEnum.CAPTURE_COMPRESSED_IMAGE.name,
+                owner,
+                ActivityResultContracts.StartActivityForResult(),
+                onResultManager::setCameraCompressed
             )
 
         setDocLauncher =

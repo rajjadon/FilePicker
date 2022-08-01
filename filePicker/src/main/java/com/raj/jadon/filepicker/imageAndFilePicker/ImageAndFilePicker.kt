@@ -48,6 +48,7 @@ class ImageAndFilePicker constructor(
     ImageAndFilePickerContract {
 
     lateinit var photoFile: File
+    private var compressPercentage: Int = 0
 
     override fun openGallery() {
         Dexter.withContext(context)
@@ -88,7 +89,42 @@ class ImageAndFilePicker constructor(
         )
     }
 
-    override fun openCamera() {
+    override fun captureCompressedImage(compressPercentage: Int) {
+        Dexter.withContext(context)
+            .withPermissions(
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                    if (report!!.areAllPermissionsGranted()) {
+
+                        this@ImageAndFilePicker.compressPercentage = compressPercentage
+                        photoFile = createImageFile(context)
+
+                        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+                        takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+                        takePictureIntent.let {
+                            startActivityContracts.setCameraCompressedImageLauncher.launch(
+                                takePictureIntent
+                            )
+                        }
+
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: MutableList<PermissionRequest>?,
+                    token: PermissionToken?,
+                ) {
+                    token!!.continuePermissionRequest()
+                }
+            }).check()
+    }
+
+    override fun captureOriginalImage() {
         Dexter.withContext(context)
             .withPermissions(
                 Manifest.permission.CAMERA,
@@ -158,7 +194,7 @@ class ImageAndFilePicker constructor(
                     getPicturePathForGallery(context, result)
             }
 
-            StartActivityForResultEnum.CAMERA -> {
+            StartActivityForResultEnum.CAPTURE_COMPRESSED_IMAGE -> {
                 try {
                     saveBitmapIntoFIle(result.extras?.get("data") as Bitmap)
                     currentPhotoPath = if (isCroppingEnable)
@@ -184,6 +220,7 @@ class ImageAndFilePicker constructor(
                 currentPhotoPath = UCrop.getOutput(result)?.path.toString()
                 Timber.tag("crop Image uri").e(currentPhotoPath)
             }
+            else -> {}
         }
         return currentPhotoPath
     }
@@ -249,7 +286,7 @@ class ImageAndFilePicker constructor(
 
         //Convert bitmap to byte array
         val bos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, compressPercentage /*ignored for PNG*/, bos)
         val bitmapdata = bos.toByteArray()
 
         //write the bytes in file
