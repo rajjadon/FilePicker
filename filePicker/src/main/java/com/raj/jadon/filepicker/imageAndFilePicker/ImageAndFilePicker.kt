@@ -89,7 +89,7 @@ class ImageAndFilePicker constructor(
         )
     }
 
-    override fun captureCompressedImage(compressPercentage: Int) {
+    override fun openCamera(compressPercentage: Int) {
         Dexter.withContext(context)
             .withPermissions(
                 Manifest.permission.CAMERA,
@@ -124,7 +124,7 @@ class ImageAndFilePicker constructor(
             }).check()
     }
 
-    override fun captureOriginalImage() {
+    override fun openCamera() {
         Dexter.withContext(context)
             .withPermissions(
                 Manifest.permission.CAMERA,
@@ -194,7 +194,7 @@ class ImageAndFilePicker constructor(
                     getPicturePathForGallery(context, result)
             }
 
-            StartActivityForResultEnum.CAPTURE_COMPRESSED_IMAGE -> {
+            StartActivityForResultEnum.CAMERA_WITH_COMPRESSION -> {
                 try {
                     saveBitmapIntoFIle(result.extras?.get("data") as Bitmap)
                     currentPhotoPath = if (isCroppingEnable)

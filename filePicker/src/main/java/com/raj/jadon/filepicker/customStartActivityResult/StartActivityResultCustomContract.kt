@@ -32,7 +32,7 @@ class StartActivityResultCustomContract(val onResultManager: StartActivityContra
 
         setCameraLauncher =
             resultRegistry.register(
-                StartActivityForResultEnum.CAPTURE_ORIGINAL_IMAGE.name,
+                StartActivityForResultEnum.CAMERA_WITHOUT_COMPRESSION.name,
                 owner,
                 ActivityResultContracts.StartActivityForResult(),
                 onResultManager::setCamera
@@ -40,7 +40,7 @@ class StartActivityResultCustomContract(val onResultManager: StartActivityContra
 
         setCameraCompressedImageLauncher =
             resultRegistry.register(
-                StartActivityForResultEnum.CAPTURE_COMPRESSED_IMAGE.name,
+                StartActivityForResultEnum.CAMERA_WITH_COMPRESSION.name,
                 owner,
                 ActivityResultContracts.StartActivityForResult(),
                 onResultManager::setCameraCompressed
