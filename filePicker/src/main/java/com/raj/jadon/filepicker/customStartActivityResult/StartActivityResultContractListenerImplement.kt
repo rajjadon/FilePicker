@@ -18,7 +18,7 @@ class StartActivityResultContractListenerImplement : StartActivityContracts {
 
         if (this::startActivityCustomOnResult.isInitialized)
             startActivityCustomOnResult.onResult(
-                StartActivityForResultEnum.CAPTURE_ORIGINAL_IMAGE,
+                StartActivityForResultEnum.CAMERA_WITHOUT_COMPRESSION,
                 result
             )
     }
@@ -26,7 +26,7 @@ class StartActivityResultContractListenerImplement : StartActivityContracts {
     override fun setCameraCompressed(result: ActivityResult) {
         if (this::startActivityCustomOnResult.isInitialized)
             startActivityCustomOnResult.onResult(
-                StartActivityForResultEnum.CAPTURE_COMPRESSED_IMAGE,
+                StartActivityForResultEnum.CAMERA_WITH_COMPRESSION,
                 result
             )
     }

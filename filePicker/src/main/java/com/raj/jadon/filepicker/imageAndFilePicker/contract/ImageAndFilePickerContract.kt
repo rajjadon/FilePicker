@@ -13,9 +13,9 @@ interface ImageAndFilePickerContract {
 
     fun openGallery()
 
-    fun captureOriginalImage()
+    fun openCamera()
 
-    fun captureCompressedImage(compressPercentage: Int)
+    fun openCamera(compressPercentage: Int)
 
     fun pickDOCFile()
 

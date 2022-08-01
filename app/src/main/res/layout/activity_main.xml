@@ -34,14 +34,14 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->imageAndFilePicker.captureOriginalImage()}"
+                android:onClick="@{()->imageAndFilePicker.openCamera()}"
                 android:padding="10dp"
                 android:text="Open Camera" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->imageAndFilePicker.captureCompressedImage(90)}"
+                android:onClick="@{()->imageAndFilePicker.openCamera(90)}"
                 android:padding="10dp"
                 android:text="Open Camera Compressed Image" />
 
