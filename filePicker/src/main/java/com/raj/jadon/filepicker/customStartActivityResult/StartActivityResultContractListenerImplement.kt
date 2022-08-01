@@ -17,7 +17,18 @@ class StartActivityResultContractListenerImplement : StartActivityContracts {
     override fun setCamera(result: ActivityResult) {
 
         if (this::startActivityCustomOnResult.isInitialized)
-            startActivityCustomOnResult.onResult(StartActivityForResultEnum.CAMERA, result)
+            startActivityCustomOnResult.onResult(
+                StartActivityForResultEnum.CAPTURE_ORIGINAL_IMAGE,
+                result
+            )
+    }
+
+    override fun setCameraCompressed(result: ActivityResult) {
+        if (this::startActivityCustomOnResult.isInitialized)
+            startActivityCustomOnResult.onResult(
+                StartActivityForResultEnum.CAPTURE_COMPRESSED_IMAGE,
+                result
+            )
     }
 
     override fun setDOC(result: ActivityResult) {

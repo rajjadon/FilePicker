@@ -9,6 +9,7 @@ package com.raj.jadon.filepicker.customStartActivityResult
 enum class StartActivityForResultEnum {
     DOC,
     GALLERY,
-    CAMERA,
+    CAPTURE_ORIGINAL_IMAGE,
+    CAPTURE_COMPRESSED_IMAGE,
     IMAGE_CROPPING
 }
