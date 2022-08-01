@@ -24,7 +24,8 @@ interface ImageAndFilePickerContract {
         isCroppingEnable: Boolean = false,
     ): String?
 
-    fun getCameraImageFile() : File
+    @Throws(Exception::class)
+    fun getCameraImageFile(): File
 
     fun getFileName(fileUri: Uri): String?
 

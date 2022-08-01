@@ -188,7 +188,12 @@ class ImageAndFilePicker constructor(
         return currentPhotoPath
     }
 
-    override fun getCameraImageFile() = photoFile
+    override fun getCameraImageFile(): File {
+        return if (this::photoFile.isInitialized)
+            photoFile
+        else
+            throw Exception("Please open camera before calling this function getCameraImageFile()")
+    }
 
     override fun registerResultRegistry(
         onResult: StartActivityCustomOnResult,
